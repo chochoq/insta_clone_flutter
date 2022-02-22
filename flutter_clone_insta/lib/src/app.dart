@@ -11,85 +11,82 @@ class App extends GetView<BottomNavController> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      child: Obx(
-        () => Scaffold(
-          appBar: AppBar(),
-          body: IndexedStack(
-            index: controller.pageIndex.value,
-            children: [
-              Container(
-                child: Center(
-                  child: Text('HOME'),
-                ),
-              ),
-              Container(
-                child: Center(child: Text('SEARCH')),
-              ),
-              Container(
-                child: Center(child: Text('UPLOAD')),
-              ),
-              Container(
-                child: Center(child: Text('ACTIVITY')),
-              ),
-              Container(
-                child: Center(child: Text('MYPAGE')),
-              ),
-            ],
-          ),
-          bottomNavigationBar: BottomNavigationBar(
-            type: BottomNavigationBarType.fixed,
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            currentIndex: controller.pageIndex.value,
-            elevation: 0,
-            onTap: controller.changeBottomNav,
-            items: [
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.homeOff),
-                activeIcon: ImageData(IconsPath.homeOn),
-                label: 'home',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.searchOff),
-                activeIcon: ImageData(IconsPath.searchOn),
-                label: 'search',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.uploadIcon),
-                activeIcon: ImageData(IconsPath.uploadIcon),
-                label: 'upload',
-              ),
-              BottomNavigationBarItem(
-                icon: ImageData(IconsPath.activeOff),
-                activeIcon: ImageData(IconsPath.activeOn),
-                label: 'active',
-              ),
-              BottomNavigationBarItem(
-                icon: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.green[200],
+        child: Obx(
+          () => Scaffold(
+            appBar: AppBar(),
+            body: IndexedStack(
+              index: controller.pageIndex.value,
+              children: [
+                Container(
+                  child: Center(
+                    child: Text('HOME'),
                   ),
                 ),
-                activeIcon: Container(
-                  width: 30,
-                  height: 30,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.green[300],
-                  ),
+                Container(
+                  child: Center(child: Text('SEARCH')),
                 ),
-                label: 'home',
-              ),
-            ],
+                Container(
+                  child: Center(child: Text('UPLOAD')),
+                ),
+                Container(
+                  child: Center(child: Text('ACTIVITY')),
+                ),
+                Container(
+                  child: Center(child: Text('MYPAGE')),
+                ),
+              ],
+            ),
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              showSelectedLabels: false,
+              showUnselectedLabels: false,
+              currentIndex: controller.pageIndex.value,
+              elevation: 0,
+              onTap: controller.changeBottomNav,
+              items: [
+                BottomNavigationBarItem(
+                  icon: ImageData(IconsPath.homeOff),
+                  activeIcon: ImageData(IconsPath.homeOn),
+                  label: 'home',
+                ),
+                BottomNavigationBarItem(
+                  icon: ImageData(IconsPath.searchOff),
+                  activeIcon: ImageData(IconsPath.searchOn),
+                  label: 'search',
+                ),
+                BottomNavigationBarItem(
+                  icon: ImageData(IconsPath.uploadIcon),
+                  activeIcon: ImageData(IconsPath.uploadIcon),
+                  label: 'upload',
+                ),
+                BottomNavigationBarItem(
+                  icon: ImageData(IconsPath.activeOff),
+                  activeIcon: ImageData(IconsPath.activeOn),
+                  label: 'active',
+                ),
+                BottomNavigationBarItem(
+                  icon: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green[200],
+                    ),
+                  ),
+                  activeIcon: Container(
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Colors.green[300],
+                    ),
+                  ),
+                  label: 'home',
+                ),
+              ],
+            ),
           ),
         ),
-      ),
-      onWillPop: () async {
-        return false;
-      },
-    );
+        onWillPop: controller.wilPopAction);
   }
 }
