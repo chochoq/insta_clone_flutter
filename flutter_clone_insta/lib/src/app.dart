@@ -18,7 +18,9 @@ class App extends GetView<BottomNavController> {
             index: controller.pageIndex.value,
             children: [
               Container(
-                child: Center(child: Text('HOME')),
+                child: Center(
+                  child: Text('HOME'),
+                ),
               ),
               Container(
                 child: Center(child: Text('SEARCH')),
