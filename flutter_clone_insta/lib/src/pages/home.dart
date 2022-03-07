@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/avatar_widget.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
+import 'package:flutter_clone_insta/src/components/post_widget.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -58,9 +59,9 @@ class Home extends StatelessWidget {
         ));
   }
 
-// Widget _postList() {
-//   return
-// }
+  Widget _postList() {
+    return Column(children: List.generate(50, (index) => PostWidget()).toList());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +84,7 @@ class Home extends StatelessWidget {
       body: ListView(
         children: [
           _storyBoardList(),
-          // _postList(),
+          _postList(),
         ],
       ),
     );
