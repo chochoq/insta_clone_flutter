@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_clone_insta/src/components/image_data.dart';
 import 'package:flutter_clone_insta/src/pages/home.dart';
+import 'package:flutter_clone_insta/src/pages/search.dart';
 import 'package:get/get_state_manager/src/simple/get_view.dart';
 import 'package:get/state_manager.dart';
 
@@ -18,9 +19,7 @@ class App extends GetView<BottomNavController> {
               index: controller.pageIndex.value,
               children: [
                 const Home(),
-                Container(
-                  child: Center(child: Text('SEARCH')),
-                ),
+                const Search(),
                 Container(
                   child: Center(child: Text('UPLOAD')),
                 ),
