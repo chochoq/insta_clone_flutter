@@ -1,7 +1,39 @@
-import 'package:flutter/material.dart';
+import 'dart:math';
 
-class Search extends StatelessWidget {
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:quiver/iterables.dart';
+
+class Search extends StatefulWidget {
   const Search({Key? key}) : super(key: key);
+
+  @override
+  State<Search> createState() => _SearchState();
+}
+
+class _SearchState extends State<Search> {
+  // 이미지가 보이는 영역을 만들기 위함(직사각형모양을 만들기위함)
+  List<List<int>> groupBox = [[], [], []];
+
+  List<int> groupIndex = [0, 0, 0];
+
+  @override
+  void initState() {
+    super.initState();
+
+    for (var i = 0; i < 100; i++) {
+      var greedIndex = groupIndex.indexOf(min<int>(groupIndex)!);
+      var size = 1;
+
+      if (greedIndex != 1) {
+        size = Random().nextInt(100) % 2 == 0 ? 1 : 2;
+      }
+
+      groupBox[greedIndex].add(size);
+    }
+
+    print(groupBox);
+  }
 
   Widget _appBar() {
     return Row(
@@ -36,6 +68,89 @@ class Search extends StatelessWidget {
     );
   }
 
+  Widget _body() {
+    return SingleChildScrollView(
+      child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: List.generate(
+            groupBox.length,
+            (index) => Expanded(
+              child: Column(
+                children: List.generate(
+                    groupBox[index].length,
+                    (idx) => Container(
+                          height: Get.width * 0.33 * groupBox[index][idx],
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.amberAccent),
+                              color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+                        )).toList(),
+
+                //  [
+
+                //   Container(
+                //     height: 140,
+                //     color: const Color(0xffefefef),
+                //   ),
+                // ],
+              ),
+            ),
+          ).toList()
+          // [
+          //   Expanded(
+          //     child: Column(
+          //       children: [
+          //         Container(
+          //           height: 280,
+          //           color: const Color(0xff838383),
+          //         ),
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xffefefef),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          //   Expanded(
+          //     child: Column(
+          //       children: [
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xffefefef),
+          //         ),
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xff838383),
+          //         ),
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xffefefef),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          //   Expanded(
+          //     child: Column(
+          //       children: [
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xff838383),
+          //         ),
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xffefefef),
+          //         ),
+          //         Container(
+          //           height: 140,
+          //           color: const Color(0xff838383),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ],
+          ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,7 +158,9 @@ class Search extends StatelessWidget {
         child: Column(
           children: [
             _appBar(),
-            // _body(),
+            Expanded(
+              child: _body(),
+            ),
           ],
         ),
       ),
