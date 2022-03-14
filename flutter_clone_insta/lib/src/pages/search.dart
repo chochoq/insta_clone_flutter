@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:quiver/iterables.dart';
@@ -22,6 +23,8 @@ class _SearchState extends State<Search> {
     super.initState();
 
     for (var i = 0; i < 100; i++) {
+      // groupBox[i % 3].add(1);
+
       var greedIndex = groupIndex.indexOf(min<int>(groupIndex)!);
       var size = 1;
 
@@ -30,6 +33,7 @@ class _SearchState extends State<Search> {
       }
 
       groupBox[greedIndex].add(size);
+      groupIndex[greedIndex] += size;
     }
 
     print(groupBox);
@@ -41,7 +45,7 @@ class _SearchState extends State<Search> {
         Expanded(
           child: Container(
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-            margin: const EdgeInsets.only(left: 15, top: 10),
+            margin: const EdgeInsets.only(left: 15, top: 10, bottom: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(6),
               color: const Color(0xffefefef),
@@ -81,73 +85,18 @@ class _SearchState extends State<Search> {
                     (idx) => Container(
                           height: Get.width * 0.33 * groupBox[index][idx],
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.amberAccent),
-                              color: Colors.primaries[Random().nextInt(Colors.primaries.length)]),
+                            border: Border.all(color: Colors.white),
+                            color: Colors.primaries[Random().nextInt(Colors.primaries.length)],
+                          ),
+                          child: CachedNetworkImage(
+                            imageUrl:
+                                'https://i.ytimg.com/vi/ChM7Fw0QMUI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA9rd9Rma0wRxtuslEzMYzhD27nlw',
+                            fit: BoxFit.cover,
+                          ),
                         )).toList(),
-
-                //  [
-
-                //   Container(
-                //     height: 140,
-                //     color: const Color(0xffefefef),
-                //   ),
-                // ],
               ),
             ),
-          ).toList()
-          // [
-          //   Expanded(
-          //     child: Column(
-          //       children: [
-          //         Container(
-          //           height: 280,
-          //           color: const Color(0xff838383),
-          //         ),
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xffefefef),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   Expanded(
-          //     child: Column(
-          //       children: [
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xffefefef),
-          //         ),
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xff838383),
-          //         ),
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xffefefef),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          //   Expanded(
-          //     child: Column(
-          //       children: [
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xff838383),
-          //         ),
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xffefefef),
-          //         ),
-          //         Container(
-          //           height: 140,
-          //           color: const Color(0xff838383),
-          //         ),
-          //       ],
-          //     ),
-          //   ),
-          // ],
-          ),
+          ).toList()),
     );
   }
 
