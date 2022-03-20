@@ -9,8 +9,10 @@ import 'package:get/get_state_manager/src/simple/get_controllers.dart';
 enum PageName { HOME, SEARCH, UPLOAD, ACTIVITY, MYPAGE }
 
 class BottomNavController extends GetxController {
+  static BottomNavController get to => Get.find();
   RxInt pageIndex = 0.obs;
   List<int> bottomHistory = [0];
+  GlobalKey<NavigatorState> searchPageNaviKey = GlobalKey<NavigatorState>();
 
   void changeBottomNav(int value, {bool hasGesture = true}) {
     var page = PageName.values[value];
@@ -41,7 +43,8 @@ class BottomNavController extends GetxController {
     // }
   }
 
-  Future<bool> wilPopAction() async {
+// 네비에서 뒤로가기 처리
+  Future<bool> willPopAction() async {
     if (bottomHistory.length == 1) {
       showDialog(
         context: Get.context!,
@@ -55,6 +58,12 @@ class BottomNavController extends GetxController {
       );
       return true;
     } else {
+      var page = PageName.values[bottomHistory.last];
+      if (page == PageName.SEARCH) {
+        var value = await searchPageNaviKey.currentState!.maybePop();
+        if (value) return false;
+      }
+
       bottomHistory.removeLast();
       var index = bottomHistory.last;
       changeBottomNav(index, hasGesture: false);

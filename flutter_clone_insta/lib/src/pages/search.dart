@@ -46,7 +46,13 @@ class _SearchState extends State<Search> {
         Expanded(
           child: GestureDetector(
             onTap: () {
-              Get.to(SearchFocus());
+              // Get.to(SearchFocus());
+              // 검색 페이지에 네비게이터를 넣는 방식
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SearchFocus(),
+                  ));
             },
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),

@@ -19,7 +19,14 @@ class App extends GetView<BottomNavController> {
               index: controller.pageIndex.value,
               children: [
                 const Home(),
-                const Search(),
+                Navigator(
+                  key: controller.searchPageNaviKey,
+                  onGenerateRoute: (routeSetting) {
+                    return MaterialPageRoute(
+                      builder: (context) => const Search(),
+                    );
+                  },
+                ),
                 Container(
                   child: Center(child: Text('UPLOAD')),
                 ),
@@ -82,6 +89,6 @@ class App extends GetView<BottomNavController> {
             ),
           ),
         ),
-        onWillPop: controller.wilPopAction);
+        onWillPop: controller.willPopAction);
   }
 }
