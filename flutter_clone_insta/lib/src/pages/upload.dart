@@ -24,11 +24,13 @@ class Upload extends StatelessWidget {
             padding: const EdgeInsets.all(5.0),
             child: Row(
               children: const [
-                Text('갤러리',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    )),
+                Text(
+                  '갤러리',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18,
+                  ),
+                ),
                 Icon(Icons.arrow_drop_down),
               ],
             ),
@@ -38,7 +40,9 @@ class Upload extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration: BoxDecoration(
-                    color: Color(0xff808080), borderRadius: BorderRadius.circular(10)),
+                  color: const Color(0xff808080),
+                  borderRadius: BorderRadius.circular(10),
+                ),
                 child: Row(
                   children: [
                     ImageData(IconsPath.imageSelectIcon),
@@ -92,41 +96,44 @@ class Upload extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: AppBar(
         backgroundColor: Colors.white,
-        appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
-          leading: GestureDetector(
+        elevation: 0,
+        leading: GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: ImageData(IconsPath.closeImage),
+          ),
+        ),
+        title: const Text(
+          'NEW Post',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 20,
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          GestureDetector(
             onTap: () {},
             child: Padding(
               padding: const EdgeInsets.all(15.0),
-              child: ImageData(IconsPath.closeImage),
+              child: ImageData(IconsPath.nextImage, width: 50),
             ),
           ),
-          title: const Text('NEW Post',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 20,
-                color: Colors.black,
-              )),
-          actions: [
-            GestureDetector(
-              onTap: () {},
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: ImageData(IconsPath.nextImage, width: 50),
-              ),
-            ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            _imagePreview(),
+            _header(),
+            _imageSelectList(),
           ],
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              _imagePreview(),
-              _header(),
-              _imageSelectList(),
-            ],
-          ),
-        ));
+      ),
+    );
   }
 }
