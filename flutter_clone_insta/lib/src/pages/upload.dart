@@ -16,6 +16,7 @@ class _UploadState extends State<Upload> {
   var albums = <AssetPathEntity>[];
   var imageList = <AssetEntity>[];
   String headerTitle = '';
+  AssetEntity? selectedImage;
 
   @override
   void initState() {
@@ -57,6 +58,7 @@ class _UploadState extends State<Upload> {
   Future<void> _pagingPhotos() async {
     var photos = await albums.first.getAssetListPaged(0, 30);
     imageList.addAll(photos);
+    selectedImage = imageList.first;
   }
 
   Widget _imagePreview() {
@@ -65,7 +67,7 @@ class _UploadState extends State<Upload> {
     return Container(
       width: width,
       height: width,
-      // child: ,
+      child: selectedImage == null ? Container() : _photoWidget(selectedImage!, width.toInt()),
       color: Colors.green,
     );
   }
@@ -142,14 +144,14 @@ class _UploadState extends State<Upload> {
       ),
       itemCount: imageList.length,
       itemBuilder: (BuildContext context, int index) {
-        return _photoWidget(imageList[index]);
+        return _photoWidget(imageList[index], 200);
       },
     );
   }
 
-  Widget _photoWidget(AssetEntity asset) {
+  Widget _photoWidget(AssetEntity asset, int size) {
     return FutureBuilder(
-        future: asset.thumbDataWithSize(200, 200),
+        future: asset.thumbDataWithSize(size, size),
         builder: (_, AsyncSnapshot<Uint8List?> snapshot) {
           if (snapshot.hasData) {
             return Image.memory(
